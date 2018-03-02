@@ -1,25 +1,49 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
 
 button,
-input {
+input,
+textarea {
     border: none;
     background: #e8e8e8;
     padding: 10px;
     margin: 2px;
     border-radius: 8px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    transition: background 0.1s;
 }
 
 button:hover,
-input:hover {
+input:hover,
+textarea:hover {
     background: #d3d3d3;
 }
 
 button:active,
-input:active {
+input:active,
+textarea:active {
     background: #c6c6c6;
 }
 
 div.section {
     margin: 10px;
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.onButton {
+    background: #00cb1f;
+}
+
+.onButton:hover {
+    background: #00a219;
+}
+
+.onButton:active {
+    background: #008013;
+}
+
+.mono {
+    font-family: monospace;
 }

@@ -12,15 +12,18 @@
     <div class="section">
         <input type="number" min="0" max="127" id="memoryLocation" placeholder="Memory Location">
         <input type="number" min="0" max="255" id="memoryValue" placeholder="Memory Value">
-        <button onclick="memory.submitMemoryForm()">Set Memory</button>
+        <button onclick="gui.submitMemoryForm()">Set Memory</button>
+        <button onclick="gui.dumpMemory()">Dump Memory</button>
     </div>
     <div class="section">
-        <button class="material-icons">play_arrow</button>
-        <button class="material-icons">stop</button>
-        <button class="material-icons">skip_next</button>
+        <button onclick="action.onToggle()" class="material-icons" id="powerButton">power_settings_new</button>
+        <button onclick="action.stepToggle()" class="material-icons" id="debugButton">code</button>
+        <button onclick="action.stepNext()" class="material-icons">skip_next</button>
     </div>
     <div class="section">
-        <input type="text" id="output" readonly>
+        <input type="text" id="input" readonly class="mono"><button onclick="action.sendInput()" id="inputSubmit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <br>
+        <textarea type="text" id="output" readonly style="width: 400px; height: 200px; resize: none;" class="mono"></textarea>
     </div>
 </body>
 
