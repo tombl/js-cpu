@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="section">
+        <input type="number" min="0" max="127" id="memoryLocation" placeholder="Memory Location">
+        <input type="number" min="0" max="255" id="memoryValue" placeholder="Memory Value">
+        <button onclick="memory.submitMemoryForm()">Set Memory</button>
+    </div>
+    <div class="section">
+        <button class="material-icons">play_arrow</button>
+        <button class="material-icons">stop</button>
+        <button class="material-icons">skip_next</button>
+    </div>
+    <div class="section">
+        <input type="text" id="output" readonly>
+    </div>
+</body>
+
+<script src="/js/main.js"></script>
+
+</html>
