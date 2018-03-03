@@ -1,26 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons|Roboto+Mono');
 
 button,
 input,
-textarea {
+textarea,
+div.screenHolder {
     border: none;
     background: #e8e8e8;
     padding: 10px;
     margin: 2px;
     border-radius: 8px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
     transition: background 0.1s;
 }
 
 button:hover,
 input:hover,
-textarea:hover {
+textarea:hover,
+div.screenHolder:hover {
     background: #d3d3d3;
 }
 
 button:active,
 input:active,
-textarea:active {
+textarea:active,
+div.screenHolder:active {
     background: #c6c6c6;
 }
 
@@ -45,5 +48,33 @@ div.section {
 }
 
 .mono {
-    font-family: monospace;
+    font-family: "Roboto Mono", monospace;
+}
+
+div.screenHolder {
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.screenHolder canvas {
+    background: black;
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+}
+
+textarea {
+    overflow: hidden;
+    font-size: 0.9em;
+}
+
+input[type="number"] {
+    font-family: "Roboto Mono", monospace;
+    width: 50px;
+}
+
+body {
+    text-align: center;
 }

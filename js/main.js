@@ -1,5 +1,6 @@
 var running = false;
-var stepMode = false;
+var textScreen = document.getElementById("textOutput");
+var GFXscreen = document.getElementById("screenCanvas").getContext("2d");
 
 var debug = {
     instructions: function () {
@@ -29,6 +30,10 @@ var memory = {
         mem: new Array(32),
         setBit: function (location, value) {
             memory.registers.mem[location] = value;
+        },
+        selected: 0,
+        select: function (num) {
+            memory.registers.selected = num % 32;
         }
     }
 }
@@ -62,7 +67,11 @@ var action = {
         }
         stepMode = !stepMode;
     },
-    stepNext: function () {},
+    stepNext: function () {
+        if (stepMode) {
+            stepNext = true;
+        }
+    },
     boot: function () {
         cpu.runProgram();
     },
@@ -89,13 +98,38 @@ var cpu = {
 
 var gpu = {
     writeLine: function (words) {
-        var output = document.getElementById('output');
-        output.innerHTML += words + "\n";
-        output.scrollTop = output.scrollHeight;
+        textScreen.innerHTML += words + "\n";
+        textScreen.scrollTop = textScreen.scrollHeight;
+    },
+    drawPixel: function (on, x, y) {
+        if (on) {
+            GFXscreen.fillStyle = "white";
+        } else {
+            GFXscreen.fillStyle = "black"
+        }
+        var screenWH = 300;
+        var screenRes = 10;
+        var pixelSize = screenWH / screenRes;
+        GFXscreen.fillRect(x * pixelSize, y * pixelSize / 2, pixelSize, pixelSize / 2);
+
+    },
+    clearScreen: function () {
+        GFXscreen.clearRect(0, 0, 300, 300);
     }
 }
 
 var storage = {
+    snapshot: {
+        save: function (name) {
+            window.localStorage.setItem(name, memory.program.mem);
+        },
+        restore: function (name) {
+            memory.program.mem = window.localStorage.getItem(name).split(",");
+        },
+        delete: function (name) {
+            window.localStorage.removeItem(name);
+        }
+    }
 
 }
 
@@ -115,13 +149,31 @@ var instruction = [
     {
         description: "Gets input and sets the nth register to it.",
         run: function (arg) {
-            gpu.writeLine(arg);
+            memory.registers.mem[arg] = prompt("The program is requesting input");
         }
     },
     {
-        description: "Prints the registers.",
+        description: "Prints the selected register.",
         run: function () {
-            gpu.writeLine("Registers:\n" + memory.registers.mem);
+            gpu.writeLine(memory.registers.mem[memory.registers.selected]);
+        }
+    },
+    {
+        description: "Selects the nth register",
+        run: function (arg) {
+            memory.registers.select(arg);
+        }
+    },
+    {
+        description: "Sets the selected register to the argument",
+        run: function (arg) {
+            memory.registers.mem[memory.registers.selected] = arg;
+        }
+    },
+    {
+        description: "Sets the pixel x: register 0, y: register 1 to either on or off depending on the arg (1 or 0)",
+        run: function (arg) {
+            gpu.drawPixel(!!arg, memory.registers.mem[0], memory.registers.mem[1]);
         }
     }
 ]
